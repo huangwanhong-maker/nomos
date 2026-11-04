@@ -14,7 +14,8 @@ nomos implements the general methods of the social sciences:
 - matching markets;
 - social choice;
 - econometrics: panels, instruments, differences in differences, discrete choice, fixed-effects pseudo-maximum likelihood;
-- surveys, social networks and agent-based models (planned).
+- agent-based models: schedules, reproducible draws, event logs, spaces and choices (decision 0004);
+- surveys and social networks (planned).
 
 It builds on four sibling libraries:
 
@@ -133,4 +134,4 @@ When a change needs a sibling to change as well, commit them in dependency order
 
 ## 9. Current State
 
-As of 2026-10-25, the first six modules are written ([decision 0003](development/decisions/0003-the-first-modules.md)): `measurement`, `indices`, `games`, `matching`, `choice` and `econometrics`, each with its checks. `psychometrics`, `surveys`, `networks`, `mechanisms` and `agents` are planned.
+As of 2026-10-25, the first six modules are written ([decision 0003](development/decisions/0003-the-first-modules.md)): `measurement`, `indices`, `games`, `matching`, `choice` and `econometrics`, each with its checks. `agents` followed on 2026-11-04 ([decision 0004](development/decisions/0004-agent-based-models.md)). `psychometrics`, `surveys`, `networks` and `mechanisms` are planned.

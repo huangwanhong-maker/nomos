@@ -13,4 +13,4 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
-| [2026-11-04](2026-11-04.md) | nomos founded: inequality and indices, games, matching, choice, and econometrics |
+| [2026-11-04](2026-11-04.md) | Agent-based models; nomos founded: inequality and indices, games, matching, choice, and econometrics |

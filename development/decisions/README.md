@@ -12,6 +12,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-scope-boundaries-and-dependencies.md) | Scope, boundaries and dependencies | Accepted |
 | [0003](0003-the-first-modules.md) | The first modules | Accepted, provisionally |
+| [0004](0004-agent-based-models.md) | Agent-based models | Accepted, provisionally |
 
 ## 2. Template
 

@@ -1,0 +1,7 @@
+add_library(nomos_matching INTERFACE)
+add_library(nomos::matching ALIAS nomos_matching)
+target_include_directories(nomos_matching INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(nomos_matching INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_matching SOURCES tests/check_matching.cpp LIBRARIES nomos::matching calx::random)
+endif()

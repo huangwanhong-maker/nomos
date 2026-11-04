@@ -1,0 +1,8 @@
+add_library(nomos_choice INTERFACE)
+add_library(nomos::choice ALIAS nomos_choice)
+target_include_directories(nomos_choice INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(nomos_choice INTERFACE calx::linalg)
+target_compile_features(nomos_choice INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_choice SOURCES tests/check_choice.cpp LIBRARIES nomos::choice calx::random)
+endif()

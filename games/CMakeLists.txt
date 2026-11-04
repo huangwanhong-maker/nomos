@@ -1,0 +1,8 @@
+add_library(nomos_games INTERFACE)
+add_library(nomos::games ALIAS nomos_games)
+target_include_directories(nomos_games INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(nomos_games INTERFACE calx::linalg calx::optimisation)
+target_compile_features(nomos_games INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_games SOURCES tests/check_games.cpp LIBRARIES nomos::games calx::random)
+endif()

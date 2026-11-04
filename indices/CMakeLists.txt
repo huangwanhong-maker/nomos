@@ -1,0 +1,7 @@
+add_library(nomos_indices INTERFACE)
+add_library(nomos::indices ALIAS nomos_indices)
+target_include_directories(nomos_indices INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(nomos_indices INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_indices SOURCES tests/check_indices.cpp LIBRARIES nomos::indices calx::random)
+endif()

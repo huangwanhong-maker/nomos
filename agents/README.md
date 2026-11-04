@@ -1,6 +1,6 @@
 # agents: Agent-Based Models
 
-*Status: draft (2026-11-04): schedules, draws by identity, the event log, Gillespie's simulation, ensembles, spaces, logit choice and Schelling's model ([decision 0004](../development/decisions/0004-agent-based-models.md)).* Agents that plan, calibration and social force are planned.
+*Status: draft (2026-11-05): schedules, draws by identity, the event log, Gillespie's simulation, ensembles, spaces, logit choice, Schelling's model ([decision 0004](../development/decisions/0004-agent-based-models.md)) and Kirman's herding ([decision 0005](../development/decisions/0005-kirmans-herding.md)).* Agents that plan, calibration and social force are planned.
 
 ## 1. Concepts
 
@@ -20,17 +20,18 @@ Nothing names a society: agents, cells and options are numbered, and their meani
 |---|---|
 | `engine.hpp` | `Schedule{synchronous, random_sequential}`, `tick` (synchronous on a pool when given one); `Event`, `Log`; `RateTree` (Fenwick); `gillespie` (the direct method, recomputing affected rates); `replicate` → `Summary`; `Description` (ODD+D) |
 | `space.hpp` | `Lattice` (Moore or von Neumann, bounded or a torus), `Graph` (from edges; `complete`), `Plane` (a grid index; `within`) |
-| `choice.hpp` | `logit`, `choose`; `Schelling` (place, update, segregation, share content, describe) |
+| `choice.hpp` | `logit`, `choose`; `Schelling` (place, update, segregation, share content, describe); `Kirman` (two views, changed alone at rate ε or by recruitment at δ per agent of the other view over N − 1; `ones`, the exact `stationary` law of the number holding view 1, describe) |
 
 ## 3. Checks
 
-`check_nomos_agents` (14):
+`check_nomos_agents` (16):
 - the rate tree against a linear search;
 - Gillespie's SIS of 5 agents against the master equation's exact law (physis `evolve`);
 - Kurtz's mean field on 1000 agents;
 - the voter model's martingale;
 - synchronous ticks the same on one thread and four;
 - Schelling's sorting at thresholds 0, ⅓ and ½, and its ODD description;
+- Kirman's herding: the herd's shape, min(k, N − k), over 200,000 units of time against the exact birth–death law, bimodal below ε = δ/(N − 1);
 - logit choice and its draws;
 - the plane's radius queries against brute force.
 
@@ -41,6 +42,7 @@ calx `random` (streams, categorical draws), `scheduler` (the pool). The checks a
 ## 5. References
 
 - Schelling, T. C. (1971), Dynamic models of segregation, *J. Math. Sociol.* 1, 143–186.
+- Kirman, A. (1993), Ants, rationality, and recruitment, *Q. J. Econ.* 108, 137–156.
 - Gillespie, D. T. (1977), Exact stochastic simulation of coupled chemical reactions, *J. Phys. Chem.* 81, 2340–2361.
 - Kurtz, T. G. (1970), Solutions of ordinary differential equations as limits of pure jump Markov processes, *J. Appl. Probab.* 7, 49–58.
 - Huberman, B. A. and Glance, N. S. (1993), Evolutionary games and computer simulations, *PNAS* 90, 7716–7718.

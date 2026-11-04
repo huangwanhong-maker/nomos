@@ -11,6 +11,8 @@
 // - Synchronous ticks: the same states on one thread and on four, and the same event log.
 // - Schelling's model on a torus of 50 × 50, 2000 agents: from about ½ like neighbours, a threshold of ⅓ sorts them
 //   to more than 0.7, everyone content; a threshold of 0 moves no one; ½ sorts more than ⅓.
+// - Kirman's herding: the exact stationary law of a birth–death chain, bimodal below ε = δ/(N − 1), and the
+//   simulated shape of the herd, min(k, N − k), sampled each unit of time, within total variation 0.03 of it.
 // - Logit choice: the law, its ratios, the limits β → ∞ and β = 0, no overflow; draws against the law.
 // - The plane's radius queries against brute force.
 
@@ -234,6 +236,34 @@ int main() {
     s.check("... a threshold of 0 moves no one", std::fabs(none - before), 1e-15);
     s.require("... and ½ sorts more than ⅓", half > third, std::to_string(half));
     s.require("its description fills ODD's sections", !M0.describe().purpose.empty() && !M0.describe().schedule.empty());
+  }
+
+  // ---- Kirman's herding ----------------------------------------------------------------------------------------------
+  {
+    // N = 20, ε = 0.008 < δ/(N − 1) = 0.0158: bimodal. The run sampled once a unit of time for 200 000 units against the
+    // exact birth–death law. The herd's shape, min(k, N − k), mixes fast; which end it holds mixes slowly (a switch of
+    // the whole population is rare), so the shape is held to total variation 0.03 and the full law reported.
+    const na::Kirman M{0.008, 0.3};
+    const std::size_t N = 20;
+    std::vector<int> x(N, 0);
+    for (std::size_t i = 0; i < N / 2; i++) x[i] = 1;
+    std::vector<double> seen(N + 1, 0.0);
+    const int samples = 200000;
+    for (int t = 0; t < samples; t++) {
+      na::gillespie(M, x, t, t + 1, 20261104 + static_cast<std::uint64_t>(t));
+      seen[static_cast<std::size_t>(na::Kirman::ones(x))] += 1.0 / samples;
+    }
+    const auto exact = M.stationary(N);
+    double tv = 0, folded = 0;
+    for (std::size_t k = 0; k <= N; k++) tv += 0.5 * std::fabs(seen[k] - exact[k]);
+    for (std::size_t m = 0; m <= N / 2; m++) {
+      const double e = exact[m] + (m != N - m ? exact[N - m] : 0.0), o = seen[m] + (m != N - m ? seen[N - m] : 0.0);
+      folded += 0.5 * std::fabs(o - e);
+    }
+    s.require("Kirman's herding (20 agents, ε below δ/(N − 1)): the exact law is bimodal, its ends the likeliest",
+              exact[0] > exact[N / 2] && exact[N] > exact[N / 2], std::to_string(exact[0]) + " at either end against " + std::to_string(exact[N / 2]) + " at half");
+    s.check("... and the herd's shape min(k, N − k) simulated, sampled each unit of time, within total variation 0.03 of it (the full law " +
+                std::to_string(tv) + ")", folded, 0.03);
   }
 
   // ---- logit choice -----------------------------------------------------------------------------------------------

@@ -29,7 +29,7 @@ nomos is one of the foundation libraries of [The Science Infrastructures](https:
 | `surveys` | Sampling designs, design weights, calibration and raking, variance estimation (linearisation, replication) | planned |
 | `networks` | Social networks on morphe's graphs: centrality, communities, homophily, diffusion | planned |
 | `mechanisms` | Mechanism design: auctions, Vickrey–Clarke–Groves, implementation | planned |
-| [`agents`](agents/) | Agent-based models: agents, schedules and interactions on calx's random streams | draft: synchronous (on a pool, the same on any number of threads), random sequential and Gillespie's continuous-time schedules, draws keyed by agent and tick, the event log, a rate tree, ensembles; lattices, graphs and the plane; logit choice; Schelling's model; the ODD+D description ([decision 0004](development/decisions/0004-agent-based-models.md)) |
+| [`agents`](agents/) | Agent-based models: agents, schedules and interactions on calx's random streams | draft: synchronous (on a pool, the same on any number of threads), random sequential and Gillespie's continuous-time schedules, draws keyed by agent and tick, the event log, a rate tree, ensembles; lattices, graphs and the plane; logit choice; Schelling's model; the ODD+D description ([decision 0004](development/decisions/0004-agent-based-models.md)); Kirman's herding, with its exact law ([decision 0005](development/decisions/0005-kirmans-herding.md)) |
 
 ## 3. Principles
 

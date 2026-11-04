@@ -11,6 +11,14 @@
 // drawn uniformly among those where it would be content, or stays if there is none. Under random sequential
 // updating, mild preferences (f near 1/3) give strongly sorted neighbourhoods: the canonical check that micro-motives
 // need not resemble macro-patterns. Segregation is measured by the mean fraction of like neighbours.
+//
+// Kirman's model of herding (Kirman 1993, "Ants, rationality, and recruitment", Q. J. Econ. 108, 137–156): N agents
+// each hold one of two views (two food sources, a market's optimism or pessimism, two suppliers); an agent changes its
+// mind of itself at rate ε, or is recruited by another agent of the other view at rate δ times the share of the others
+// who hold it: agent i switches at the rate ε + δ (others of the other view) / (N − 1). The number k holding the first
+// view is a birth–death chain, with rates up (N − k)(ε + δ k / (N − 1)) and down k (ε + δ (N − k)/(N − 1)), whose
+// stationary law is π_k ∝ Π_{j<k} up_j / down_{j+1} exactly. When ε < δ / (N − 1) it is bimodal: the market herds to
+// one view, holds it, and switches, though no agent prefers either.
 
 #pragma once
 
@@ -129,6 +137,59 @@ struct Schelling {
             "None.",
             "like(): the fraction of like occupied neighbours; segregation(): its mean over agents.",
             "Random sequential, as Schelling moved one agent at a time."};
+  }
+};
+
+// ---- Kirman ------------------------------------------------------------------------------------------------------
+
+struct Kirman {
+  using State = std::vector<int>;  // each agent's view, 0 or 1
+  double epsilon = 0.002, delta = 0.3;
+
+  std::size_t agents(const State& x) const { return x.size(); }
+  std::size_t rules() const { return 1; }
+  static int ones(const State& x) {
+    int k = 0;
+    for (const int v : x) k += v;
+    return k;
+  }
+  double rate(const State& x, std::size_t i, std::size_t) const {
+    const double n = static_cast<double>(x.size());
+    const int k = ones(x);
+    const double other = x[i] == 1 ? n - k : k - 0.0;  // others of the other view (i itself is not of it)
+    return epsilon + delta * other / (n - 1);
+  }
+  void fire(State& x, std::size_t i, std::size_t, calx::random::Stream&, std::vector<std::size_t>& affected) const {
+    x[i] = 1 - x[i];
+    for (std::size_t j = 0; j < x.size(); j++) affected.push_back(j);  // every rate depends on the count
+  }
+
+  // The exact stationary law of the number holding view 1, for N agents.
+  std::vector<double> stationary(std::size_t N) const {
+    const double n = static_cast<double>(N);
+    std::vector<double> p(N + 1, 1.0);
+    for (std::size_t k = 1; k <= N; k++) {
+      const double j = static_cast<double>(k - 1);
+      const double up = (n - j) * (epsilon + delta * j / (n - 1)), down = (j + 1) * (epsilon + delta * (n - j - 1) / (n - 1));
+      p[k] = p[k - 1] * up / down;
+    }
+    double t = 0;
+    for (const double v : p) t += v;
+    for (double& v : p) v /= t;
+    return p;
+  }
+
+  Description describe() const {
+    return {"How a population herds between two views that no one prefers (Kirman 1993).",
+            "Agents, each holding one of two views.",
+            "Continuous time; no space: every agent may meet every other.",
+            "An agent changes its mind of itself at rate ε, or is recruited at rate δ times the share of the others who think otherwise.",
+            "Emergence: herding and sudden switches of the whole population. Interaction: recruitment by random meetings.",
+            "A rate rule; no planning.",
+            "Each agent's view drawn at random.",
+            "None.",
+            "stationary(): the exact law of the number holding view 1, a birth–death chain.",
+            "Gillespie's direct method: the model is a jump process."};
   }
 };
 

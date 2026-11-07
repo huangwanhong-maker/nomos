@@ -14,6 +14,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0003](0003-the-first-modules.md) | The first modules | Accepted, provisionally |
 | [0004](0004-agent-based-models.md) | Agent-based models | Accepted, provisionally |
 | [0005](0005-kirmans-herding.md) | Kirman's herding | Accepted, provisionally |
+| [0006](0006-composite-indicators.md) | Composite indicators | Accepted, provisionally |
 
 ## 2. Template
 

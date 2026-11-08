@@ -15,6 +15,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0004](0004-agent-based-models.md) | Agent-based models | Accepted, provisionally |
 | [0005](0005-kirmans-herding.md) | Kirman's herding | Accepted, provisionally |
 | [0006](0006-composite-indicators.md) | Composite indicators | Accepted, provisionally |
+| [0007](0007-panels-instruments-and-differences-move.md) | Panels, instruments and differences in differences move to tyche and peira | Accepted, provisionally |
 
 ## 2. Template
 

@@ -49,8 +49,7 @@
 #include <span>
 #include <vector>
 
-#include "absorb.hpp"
-#include "instrumental.hpp"
+#include "common.hpp"
 
 namespace nomos::econometrics {
 

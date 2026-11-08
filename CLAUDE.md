@@ -13,7 +13,7 @@ nomos implements the general methods of the social sciences:
 - games: equilibria, dominance, zero-sum games, and later mechanism design;
 - matching markets;
 - social choice;
-- econometrics: panels, instruments, differences in differences, discrete choice, fixed-effects pseudo-maximum likelihood;
+- econometrics: discrete choice (marginal effects, the multinomial logit) and fixed-effects pseudo-maximum likelihood; panels moved to tyche, instruments and differences in differences to peira (decision 0007);
 - agent-based models: schedules, reproducible draws, event logs, spaces and choices (decision 0004);
 - surveys and social networks (planned).
 
@@ -128,7 +128,7 @@ When a change needs a sibling to change as well, commit them in dependency order
 
 ## 8. Open Decisions
 
-1. **The boundary of causal inference.** tyche's `causal` (planned) holds causal graphs and potential outcomes in general; the designs of econometrics (instruments, differences in differences, and regression discontinuity, planned) are here. Where matching estimators and synthetic controls go is open.
+1. **The boundary of causal inference.** Closed (decision 0007): causal graphs, instruments, differences in differences, regression discontinuity and synthetic control are peira's (`quasi`, `graphs`), panels tyche's (`panel`).
 2. **Exact games.** Equilibria are computed in floating point; exact rational support enumeration and Lemke–Howson on morphe's rationals are possible when exact payoffs matter.
 3. **Large markets and profiles.** The algorithms are for the sizes of research examples; large instances (national matching markets, Kemeny rankings of many candidates) would need better data structures or heuristics.
 

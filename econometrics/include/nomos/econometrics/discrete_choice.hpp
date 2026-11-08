@@ -29,7 +29,7 @@
 #include <span>
 #include <vector>
 
-#include "absorb.hpp"
+#include "common.hpp"
 
 namespace nomos::econometrics {
 

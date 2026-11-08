@@ -21,6 +21,8 @@
 
 **Decompositions.** Every generalised entropy index splits over a partition into groups as GE = Σ_g v_g^{1−α} s_g^α GE_g + GE_between, v_g and s_g the population and amount shares (Bourguignon 1979; Shorrocks 1980, which shows these are the only additively decomposable relative indices); FGT(α) = Σ_g v_g FGT_g (Foster, Greer and Thorbecke 1984). The Gini coefficient does not decompose so.
 
+**Accessibility** ([decision 0008](../development/decisions/0008-accessibility.md)). Places of demand i with people P_i, places of supply j with a capacity S_j, and the costs t_ij of the pairs within reach, which the caller computes on a network and gives as a sparse list. A decay f weighs a cost: binary within a limit T, exponential e^{−βt}, or Gaussian within T, (e^{−(t/T)²/2} − e^{−1/2})/(1 − e^{−1/2}), so that f(0) = 1 and f(T) = 0 (Dai 2010). *Cumulative opportunities* Σ_j S_j [t_ij ≤ T] (Wachs and Kumagai 1973) and *gravity* Σ_j S_j f(t_ij) (Hansen 1959) count what lies within reach. The *two-step floating catchment* (Luo and Wang 2003; with a decay in both steps, Luo and Qi 2009) shares it: each supply's ratio to the demand that reaches it, R_j = S_j / Σ_k f(t_kj) P_k, then each place's access A_i = Σ_j f(t_ij) R_j. Summing, Σ_i P_i A_i = Σ_j R_j Σ_i f(t_ij) P_i = Σ_j S_j over the supplies some demand reaches: supply is conserved, never counted twice, so A_i is supply per person and comparable with the region's Σ S / Σ P. *Unmet need* is the people with A_i = 0 and those below a declared share of the person-weighted mean; the inequality of access is its person-weighted Gini coefficient. The *Rural Access Index* is the share of the rural population within 2 km of an all-season road (Roberts, KC and Rastogi 2006; SDG indicator 9.1.1).
+
 ## 2. Content
 
 | Header | Content |
@@ -29,6 +31,7 @@
 | `poverty.hpp` | `fgt(x, z, α, w)`, `headcount_ratio`, `poverty_gap_index`, `poverty_severity`, `watts_index` |
 | `concentration.hpp` | `shares(x)`, `herfindahl_hirschman(x)`, `herfindahl_hirschman_normalised(x)`, `concentration_ratio(x, k)`, `entropy_index(x)`, `hannah_kay(x, α)` |
 | `specialisation.hpp` | `location_quotients(Rectangular)`, `balassa_index(Rectangular)`, `symmetric_location_quotients(Rectangular)`, `dissimilarity(a, b)`, `grubel_lloyd(a, b)` for one category and for spans, `grubel_lloyd_adjusted(a, b)` |
+| `accessibility.hpp` | `Reachable{demand, supply, cost}`, `Decay{binary, exponential, gaussian}`, `Catchment{limit, decay, beta}`, `weight(c, t)`, `gravity(pairs, supply, demands, c)`, `cumulative(pairs, supply, demands, limit)`, `two_step(pairs, demand, supply, c)` → `FloatingCatchment{ratio, access, supply_reached, regional}`, `unmet_need(demand, access, share)` → `UnmetNeed{people, without, short_of, share_without, share_short, mean_access, gini}`, `rural_access(people, rural, distance, within)` → `RuralAccess{rural, served, index}` |
 | `decomposition.hpp` | `decompose_generalised_entropy(x, group, α, w)` → `EntropyDecomposition{total, within, between, population_share, amount_share, mean, index, weight}`; `decompose_fgt(x, group, z, α, w)` → `PovertyDecomposition{total, population_share, index, contribution}` |
 
 Weights are `std::span<const double>` (empty for ones); tables are `calx::linalg::Rectangular`. Invalid input (negative weights, zero mean, zeros where a logarithm needs positive amounts) throws `std::invalid_argument`.
@@ -37,6 +40,7 @@ Weights are `std::span<const double>` (empty for ones); tables are `calx::linalg
 
 - `tests/check_inequality.cpp` (35 checks): equal amounts give zero everywhere; one holder of everything among ten gives a Gini coefficient of 0.9, Theil's T of ln 10 and GE(2) of 4.5; the amounts 1, …, 5 have G = 4/15; 1, …, 10 have a Palma ratio of 1 and a middle half holding 27.5/55; the Gini coefficient by covariance against the double sum and against 1 − 2∫L with random weights and ties; integer weights as replication, three copies of the population and scaling by 7.3 change no index; a unit of zero weight counts for nothing; Atkinson against GE(1 − ε) and against the power mean, A(1) against the geometric mean, CV² = 2GE(2), GE continuous at α = 0 and 1 from both sides; a transfer from the richest to the poorest lowers every index; the exponential distribution at 10⁶ midpoint quantiles against its closed forms (G = ½, T = 1 − γ, L = γ, GE(2) = ½, A(½) = 1 − π/4, A(1) = 1 − e^{−γ}, its Lorenz curve) to 10⁻⁶.
 - `tests/check_poverty_concentration.cpp` (35 checks): FGT(0, 1, 2, 3) and Watts on 1, …, 10 by hand, the line itself not poor, weights as replication, monotonicity, a transfer among the poor leaving the gap unchanged and lowering severity and Watts; H = 0.365 for shares 50, 30, 15, 5 per cent, CR₂ = 0.8, equal holders (H = 1/n, E = ln n, Hannah–Kay n), a single holder, Hannah–Kay decreasing in α, equal to 1/H at 2 and continuous at 1; location quotients by hand, their two weighted means of one on a random table, NaN for an empty column; dissimilarity at its ends; Grubel–Lloyd by category, aggregate and adjusted, by hand.
+- `tests/check_accessibility.cpp` (8 checks): one clinic of 100 shared by 50 and 150 people gives a ratio and an access of 0.5; Σ P A equals the supply reached on random places under the binary, exponential and Gaussian decays; cumulative opportunities count what lies within the limit, and gravity with a vanishing rate is cumulative opportunities; the decays at 0 and at the limit; unmet need and an even access's zero Gini by hand; the Rural Access Index by hand.
 - `tests/check_decomposition.cpp` (10 checks): within + between = total for six values of α with an empty group; the weights of Theil's L and T; no between part when groups share a distribution, no within part when groups are equal inside; FGT contributions adding up.
 
 ## 4. Dependencies
@@ -50,6 +54,7 @@ calx `linalg` (`Rectangular`). In the checks, calx `random` and `verification`.
 - Bourguignon, F. (1979), Decomposable income inequality measures, *Econometrica* 47, 901–920.
 - Cobham, A. and Sumner, A. (2013), Is it all about the tails? The Palma measure of income inequality, Center for Global Development, Working Paper 343.
 - Cowell, F. A. (2011), *Measuring Inequality*, 3rd ed., Oxford University Press.
+- Dai, D. (2010), Black residential segregation, disparities in spatial access to health care facilities, and late-stage breast cancer diagnosis in metropolitan Detroit, *Health Place* 16, 1038–1052.
 - Dalton, H. (1920), The measurement of the inequality of incomes, *Econ. J.* 30, 348–361.
 - Deaton, A. (1997), *The Analysis of Household Surveys*, Johns Hopkins University Press.
 - Duncan, O. D. and Duncan, B. (1955), A methodological analysis of segregation indexes, *Am. Sociol. Rev.* 20, 210–217.
@@ -58,16 +63,21 @@ calx `linalg` (`Rectangular`). In the checks, calx `random` and `verification`.
 - Gini, C. (1912), *Variabilità e mutabilità*, Bologna.
 - Grubel, H. G. and Lloyd, P. J. (1975), *Intra-Industry Trade*, Macmillan.
 - Hannah, L. and Kay, J. A. (1977), *Concentration in Modern Industry*, Macmillan.
+- Hansen, W. G. (1959), How accessibility shapes land use, *J. Am. Inst. Planners* 25, 73–76.
 - Haughton, J. and Khandker, S. R. (2009), *Handbook on Poverty and Inequality*, World Bank.
 - Herfindahl, O. C. (1950), *Concentration in the Steel Industry*, PhD thesis, Columbia University.
 - Hirschman, A. O. (1945), *National Power and the Structure of Foreign Trade*, University of California Press; (1964), The paternity of an index, *Am. Econ. Rev.* 54, 761–762.
 - Isard, W. (1960), *Methods of Regional Analysis*, MIT Press.
 - Laursen, K. (2015), Revealed comparative advantage and the alternatives as measures of international specialization, *Eurasian Bus. Rev.* 5, 99–115.
 - Lerman, R. I. and Yitzhaki, S. (1984), A note on the calculation and interpretation of the Gini index, *Econ. Lett.* 15, 363–368; (1989), Improving the accuracy of estimates of Gini coefficients, *J. Econometrics* 42, 43–47.
+- Luo, W. and Qi, Y. (2009), An enhanced two-step floating catchment area (E2SFCA) method for measuring spatial accessibility to primary care physicians, *Health Place* 15, 1100–1107.
+- Luo, W. and Wang, F. (2003), Measures of spatial accessibility to health care in a GIS environment: synthesis and a case study in the Chicago region, *Environ. Plann. B* 30, 865–884.
 - Palma, J. G. (2011), Homogeneous middles vs. heterogeneous tails, *Dev. Change* 42, 87–153.
 - Pigou, A. C. (1912), *Wealth and Welfare*, Macmillan.
+- Roberts, P., KC, S. and Rastogi, C. (2006), *Rural Access Index: A Key Development Indicator*, World Bank Transport Paper TP-10.
 - Shorrocks, A. F. (1980), The class of additively decomposable inequality measures, *Econometrica* 48, 613–625; (1983), Ranking income distributions, *Economica* 50, 3–17.
 - Theil, H. (1967), *Economics and Information Theory*, North-Holland.
+- Wachs, M. and Kumagai, T. G. (1973), Physical accessibility as a social indicator, *Socio-Econ. Plann. Sci.* 7, 437–456.
 - Watts, H. W. (1968), An economic definition of poverty, in D. P. Moynihan (ed.), *On Understanding Poverty*, Basic Books.
 
 ## 6. Open Questions

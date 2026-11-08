@@ -13,7 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
-| [2026-11-09](2026-11-09.md) | Panels, instruments and differences in differences move to tyche and peira |
+| [2026-11-09](2026-11-09.md) | Accessibility; panels, instruments and differences in differences move to tyche and peira |
 | [2026-11-07](2026-11-07.md) | Composite indicators |
 | [2026-11-05](2026-11-05.md) | Kirman's herding |
 | [2026-11-04](2026-11-04.md) | Agent-based models; nomos founded: inequality and indices, games, matching, choice, and econometrics |

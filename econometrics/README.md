@@ -15,12 +15,16 @@
 | `common.hpp` | The names read from tyche: `Factor`, `factor`, `AbsorbOptions`, `demean`, `recover_effects`; the sandwich's pieces |
 | `discrete_choice.hpp` | `average_marginal_effects(glm_fit, X, discrete_columns, confidence)` → `MarginalEffects{effect, se, z, p, ci, discrete, covariance}` |
 | `multinomial.hpp` | `MultinomialCovariance {model, hc0, cluster}`, `MultinomialOptions`; `multinomial_logit(X, y, categories, options)` → `MultinomialFit`; `multinomial_marginal_effects(fit, X)` |
+| `conditional_logit.hpp` | `ChoiceData{X, start, chosen, weight, person}` (long form); `conditional_logit(d, covariance)` → `ChoiceFit{beta, se, z, p, covariance, log_likelihood, rho_squared, probabilities}` by Newton's method; `willingness_to_pay(beta, V, k, price)` → `WillingnessToPay{value, se, lower, upper, price_z}` by the delta method (decision 0009) |
+| `nested_logit.hpp` | `nested_logit(d, nest)` → `NestedFit{beta, se, lambda, lambda_se, covariance, log_likelihood}` (McFadden 1978) |
+| `mixed_logit.hpp` | `mixed_logit(d, random, R)` → `MixedFit{mean, mean_se, spread, spread_se, covariance, log_likelihood}`: normal coefficients simulated with Halton draws over each decision maker's panel (Train 2009) |
 | `poisson_fixed_effects.hpp` | `PoissonCovariance {hc0, cluster}`, `PoissonTwoWayOptions{covariance, clusters, offset, tolerance, max_iterations, confidence, absorb}`; `poisson_two_way(X, y, row, column, options)` → `PoissonTwoWayFit{beta, se, z, p, ci, covariance, aliased, row_effects, column_effects, fitted, dropped, used, dropped_rows, dropped_columns, clusters, deviance, iterations, converged, sweeps}` |
 
 ## 3. Checks
 
 - `tests/check_discrete_choice.cpp`: for logit and probit, the continuous effect as the derivative of the average probability and as β times the average density, the binary effect as an average difference, the delta-method errors against a gradient by central differences, the intercept without effect, the truth within four standard errors.
 - `tests/check_multinomial.cpp`: the multinomial logit's coefficients, its covariances and marginal effects.
+- `tests/check_choice.cpp` (11): the conditional logit against statsmodels' ConditionalLogit (`tests/fixtures/make_choice_fixtures.py`), willingness to pay against numpy, weights as replication, clustering, the nested logit at λ = 1 and the mixed logit without random columns as the conditional logit, and recovery of λ and of a normal coefficient.
 - `tests/check_poisson_fixed_effects.cpp`: the independence model μ_rc = y_r· y_·c / y_·· with an all-zero row and column dropped; against tyche's GLM with dense dummies on a 10 × 12 table with zeros (coefficients, deviance, fitted values, effects, HC0 errors, clustered errors in the ratio of the small-sample factors), a regressor absorbed by the row effects; a gravity-like table of 39,800 cells, converged with the truth within four standard errors.
 
 ## 4. Dependencies

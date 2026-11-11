@@ -18,6 +18,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0007](0007-panels-instruments-and-differences-move.md) | Panels, instruments and differences in differences move to tyche and peira | Accepted, provisionally |
 | [0008](0008-accessibility.md) | Accessibility | Accepted, provisionally |
 | [0009](0009-choice-among-alternatives.md) | Choice among alternatives: conditional, nested and mixed logit, willingness to pay | Accepted, provisionally |
+| [0010](0010-spatial-interaction-and-congestion.md) | Spatial interaction and congestion: Wilson's models, Lowry, routing games, Evans's combined equilibrium | Accepted, provisionally |
 
 ## 2. Template
 

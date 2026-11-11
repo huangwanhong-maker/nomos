@@ -1,0 +1,8 @@
+add_library(nomos_interaction INTERFACE)
+add_library(nomos::interaction ALIAS nomos_interaction)
+target_include_directories(nomos_interaction INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(nomos_interaction INTERFACE nomos::games calx::linalg)
+target_compile_features(nomos_interaction INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_interaction SOURCES tests/check_interaction.cpp LIBRARIES nomos::interaction nomos::econometrics calx::random)
+endif()

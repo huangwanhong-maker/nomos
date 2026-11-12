@@ -10,6 +10,7 @@
 - **Support enumeration.** In a nondegenerate game every equilibrium has supports of equal size k, on which the strategies solve square linear systems of indifference; enumerating the pairs of supports finds them all (von Stengel 2007, §3.2), and their number is odd (Lemke and Howson 1964; Wilson 1971).
 - **Zero-sum games.** When B = −A, the maximin and minimax values meet (von Neumann 1928); the value and the optimal strategies are a pair of dual linear programmes (Dantzig 1951).
 - **Many players.** Pure equilibria of an n-player game are found by checking every profile against every unilateral deviation; one need not exist.
+- **Coalitional games and claims.** A coalitional game gives a worth to every set of players; the Shapley value (1953) gives each the mean of what it adds over all orders of arrival. A claims problem is an estate short of the claims on it (O'Neill 1982): paid in an order, the order decides; the mean over orders is the Shapley value of what each set secures after the others are paid; paid together, the rule depends on the rates (in proportion to the claims, or equal); the Talmud's rule is the one consistent with the contested-garment division of every pair (Aumann and Maschler 1985).
 - **Routing games with congestion.** A continuum of travellers between origins and destinations each choose a path, every arc's time rising with its flow. At Wardrop's equilibrium (1952) every path in use takes the least time of its pair. The equilibrium arc flows minimise Beckmann's potential Σ_a ∫ t_a (Beckmann, McGuire and Winsten 1956), Rosenthal's potential made continuous, so they exist and, for strictly increasing times, are unique. The flows least in total time are the equilibrium of the same game at marginal costs. Selfish routing costs at most 4/3 of the optimum when times are affine (Roughgarden and Tardos 2002), and a road added can lengthen every journey (Braess 1968). Frank–Wolfe solves both: shortest paths at the current times, a step by exact line search, and a lower bound from convexity.
 
 ## 2. Content
@@ -21,6 +22,7 @@
 | `equilibria.hpp` | `Equilibrium{x, y, row_value, column_value}`; `is_equilibrium(g, x, y)`; `support_enumeration(g)` |
 | `zero_sum.hpp` | `solve_zero_sum(A)` → `ZeroSumSolution{lower_value, upper_value, value, x, y}` |
 | `normal_form.hpp` | `NormalForm{strategies, payoffs}` with `index`, `profile`, `payoff`; `normal_form(Bimatrix)`; `pure_equilibria(NormalForm)` |
+| `claims.hpp` | `shapley(n, v)`, the Shapley value of a coalitional game given on sets as masks; `Claims{estate, claims}`; `priority(P, order)` and `priority_range(P)`; `random_arrival(P)`; `proportional`, `constrained_equal_awards`, `constrained_equal_losses`, `talmud`; `contested_garment(E, c₁, c₂)`; `interleaved(P, order, rates, step)` ([decision 0011](../development/decisions/0011-claims-and-the-shapley-value.md)) |
 | `congestion.hpp` | `Arc{tail, head, a, b, power}` (t = a + b x^p) and `bpr(…)`; `Network{nodes, arcs, demands}`; `assign(network, {objective, gap, …})` → `Assignment{flow, time, total_time, objective, lower_bound, gap, …}`; `relative_gap`, `skims`, `times`, `beckmann`, `total_time`, `price_of_anarchy` |
 
 Payoff matrices are `calx::linalg::Rectangular`. Ties within `tolerance` (default 10⁻⁹) count as ties.
@@ -28,6 +30,8 @@ Payoff matrices are `calx::linalg::Rectangular`. Ties within `tolerance` (defaul
 ## 3. Checks
 
 `tests/check_games.cpp` (30 checks): the prisoner's dilemma (Gibbons 1992, §1.1.A), with one pure equilibrium reached by dominance; Gibbons' dominance-solvable game (§1.1.B) and the order of its eliminations; matching pennies (no pure equilibrium; (½, ½); value 0 by linear programming); the battle of the sexes (three equilibria, the mixed one paying ⅔); rock, paper, scissors (value 0, uniform); a 2 × 2 zero-sum game of value ⅕; von Stengel's 3 × 2 game with three equilibria; a row dominated only by a mixture; forty random nondegenerate games (the best response condition, an odd number of equilibria, the pure ones among them); ten random zero-sum games (the minimax theorem, the guarantees, agreement with support enumeration); a three-player coordination game, Jordan's (1993) game without a pure equilibrium, and the numbering of profiles.
+
+`tests/check_claims.cpp` (28 checks): the glove game; efficiency, symmetry and additivity of the value; the Talmud's three estates and the contested garment; consistency on every pair; random arrival against every order by brute force; every rule efficient, bounded and order-preserving; payment by turns, which tends to the proportional rule at rates in proportion to the claims and to the equal awards at equal rates.
 
 `tests/check_congestion.cpp` (23 checks):
 

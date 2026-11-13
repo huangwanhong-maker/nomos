@@ -1,0 +1,8 @@
+add_library(nomos_appraisal INTERFACE)
+add_library(nomos::appraisal ALIAS nomos_appraisal)
+target_include_directories(nomos_appraisal INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(nomos_appraisal INTERFACE calx::linalg calx::random calx::solvers)
+target_compile_features(nomos_appraisal INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_appraisal SOURCES tests/check_appraisal.cpp LIBRARIES nomos::appraisal)
+endif()

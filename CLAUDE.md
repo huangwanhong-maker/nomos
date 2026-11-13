@@ -16,6 +16,7 @@ nomos implements the general methods of the social sciences:
 - econometrics: discrete choice (marginal effects, the multinomial logit) and fixed-effects pseudo-maximum likelihood; panels moved to tyche, instruments and differences in differences to peira (decision 0007);
 - agent-based models: schedules, reproducible draws, event logs, spaces and choices (decision 0004);
 - spatial interaction: Wilson's models of flows between places, their calibration, the logsum accessibility, Lowry's metropolis and Evans's combined equilibrium of distribution and assignment (decision 0010);
+- appraisal: multi-criteria decision analysis with screening and stability, cost–benefit analysis, Delphi and morphological fields (decision 0012);
 - surveys and social networks (planned).
 
 It builds on four sibling libraries:
@@ -62,7 +63,7 @@ nomos shares its governing principle with its sibling repositories: **modular, e
 ```
 nomos/
 ├── CMakeLists.txt   the project: one target nomos::<module> per module; the siblings added once
-├── measurement/ · indices/ · games/ · matching/ · choice/ · econometrics/ · agents/ · interaction/    the modules written
+├── measurement/ · indices/ · games/ · matching/ · choice/ · econometrics/ · agents/ · interaction/ · appraisal/    the modules written
 └── development/     decisions · ideas · release notes
 ```
 

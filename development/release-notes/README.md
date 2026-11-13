@@ -13,6 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
+| [2026-11-13](2026-11-13.md) | Appraisal (screening, the weighted sum, TOPSIS, AHP, PROMETHEE, weight stability, SMAA; costs and benefits with declining rates; Delphi and morphological fields) and the agreement of coders (Cohen, Fleiss, Krippendorff) |
 | [2026-11-12](2026-11-12.md) | Claims on a short estate, and the Shapley value; spatial interaction and congestion |
 | [2026-11-09](2026-11-09.md) | Choice among alternatives; accessibility; panels, instruments and differences in differences move to tyche and peira |
 | [2026-11-07](2026-11-07.md) | Composite indicators |

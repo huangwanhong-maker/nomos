@@ -1,0 +1,7 @@
+add_library(nomos_psychometrics INTERFACE)
+add_library(nomos::psychometrics ALIAS nomos_psychometrics)
+target_include_directories(nomos_psychometrics INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(nomos_psychometrics INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_psychometrics SOURCES tests/check_psychometrics.cpp LIBRARIES nomos::psychometrics calx::random)
+endif()

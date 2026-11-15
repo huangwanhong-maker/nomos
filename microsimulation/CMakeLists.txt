@@ -1,0 +1,8 @@
+add_library(nomos_microsimulation INTERFACE)
+add_library(nomos::microsimulation ALIAS nomos_microsimulation)
+target_include_directories(nomos_microsimulation INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(nomos_microsimulation INTERFACE nomos::measurement)
+target_compile_features(nomos_microsimulation INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_microsimulation SOURCES tests/check_microsimulation.cpp LIBRARIES nomos::microsimulation calx::random)
+endif()

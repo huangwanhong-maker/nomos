@@ -20,6 +20,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0009](0009-choice-among-alternatives.md) | Choice among alternatives: conditional, nested and mixed logit, willingness to pay | Accepted, provisionally |
 | [0011](0011-claims-and-the-shapley-value.md) | Claims on a short estate and the Shapley value: priority and its range over orders, random arrival, the proportional rule, equal awards and losses, the Talmud rule, payment by turns | Accepted, provisionally |
 | [0012](0012-appraisal-and-agreement.md) | Appraisal, futures and the agreement of coders: MCDA with screening and stability, cost–benefit analysis, Delphi, morphological fields (`appraisal`); Cohen's, Fleiss's κ and Krippendorff's α (`measurement`) | Accepted, provisionally |
+| [0013](0013-microsimulation-and-psychometrics.md) | Static microsimulation of taxes and benefits; psychometrics: classical test theory and item response theory by marginal maximum likelihood | Accepted, provisionally |
 | [0010](0010-spatial-interaction-and-congestion.md) | Spatial interaction and congestion: Wilson's models, Lowry, routing games, Evans's combined equilibrium | Accepted, provisionally |
 
 ## 2. Template

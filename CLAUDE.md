@@ -8,7 +8,9 @@ nomos is one of the foundation libraries of [The Science Infrastructures](https:
 
 nomos implements the general methods of the social sciences:
 
-- measurement: inequality, poverty, concentration, specialisation, accessibility (who can reach what they need, and who is left without), and later scales and item response theory;
+- measurement: inequality, poverty, concentration, specialisation, accessibility (who can reach what they need, and who is left without);
+- psychometrics: classical test theory and item response theory (decision 0013);
+- microsimulation: static microsimulation of taxes and benefits (decision 0013);
 - index numbers;
 - games: equilibria, dominance, zero-sum games, routing games with congestion (decision 0010), and later mechanism design;
 - matching markets;
@@ -63,7 +65,7 @@ nomos shares its governing principle with its sibling repositories: **modular, e
 ```
 nomos/
 ├── CMakeLists.txt   the project: one target nomos::<module> per module; the siblings added once
-├── measurement/ · indices/ · games/ · matching/ · choice/ · econometrics/ · agents/ · interaction/ · appraisal/    the modules written
+├── measurement/ · indices/ · games/ · matching/ · choice/ · econometrics/ · agents/ · interaction/ · appraisal/ · psychometrics/ · microsimulation/    the modules written
 └── development/     decisions · ideas · release notes
 ```
 
@@ -136,4 +138,4 @@ When a change needs a sibling to change as well, commit them in dependency order
 
 ## 9. Current State
 
-As of 2026-10-25, the first six modules are written ([decision 0003](development/decisions/0003-the-first-modules.md)): `measurement`, `indices`, `games`, `matching`, `choice` and `econometrics`, each with its checks. `agents` followed on 2026-11-04 ([decision 0004](development/decisions/0004-agent-based-models.md)), and accessibility in `measurement` on 2026-11-09 ([decision 0008](development/decisions/0008-accessibility.md)). `psychometrics`, `surveys`, `networks` and `mechanisms` are planned.
+As of 2026-10-25, the first six modules are written ([decision 0003](development/decisions/0003-the-first-modules.md)): `measurement`, `indices`, `games`, `matching`, `choice` and `econometrics`, each with its checks. `agents` followed on 2026-11-04 ([decision 0004](development/decisions/0004-agent-based-models.md)), and accessibility in `measurement` on 2026-11-09 ([decision 0008](development/decisions/0008-accessibility.md)). `psychometrics` and `microsimulation` followed on 2026-11-15 ([decision 0013](development/decisions/0013-microsimulation-and-psychometrics.md)); `surveys`, `networks` and `mechanisms` are planned.

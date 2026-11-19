@@ -12,7 +12,7 @@ nomos implements the general methods of the social sciences:
 - psychometrics: classical test theory and item response theory (decision 0013);
 - microsimulation: static microsimulation of taxes and benefits (decision 0013);
 - index numbers;
-- games: equilibria, dominance, zero-sum games, routing games with congestion (decision 0010), and later mechanism design;
+- games: equilibria, dominance, zero-sum games, routing games with congestion (decision 0010), the Shapley value and claims (decision 0011), a priori voting power, bargaining and the nucleolus (decision 0014), and later mechanism design;
 - matching markets;
 - social choice;
 - econometrics: discrete choice (marginal effects, the multinomial logit) and fixed-effects pseudo-maximum likelihood; panels moved to tyche, instruments and differences in differences to peira (decision 0007);

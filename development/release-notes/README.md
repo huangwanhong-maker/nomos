@@ -13,6 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
+| [2026-11-19](2026-11-19.md) | Voting power (Penrose, Banzhaf, Shapley–Shubik, Coleman), bargaining (Nash, Kalai–Smorodinsky, egalitarian) with Adjusted Winner, and the core, least core and nucleolus |
 | [2026-11-15](2026-11-15.md) | Static microsimulation of taxes and benefits; classical test theory and item response theory |
 | [2026-11-13](2026-11-13.md) | Appraisal (screening, the weighted sum, TOPSIS, AHP, PROMETHEE, weight stability, SMAA; costs and benefits with declining rates; Delphi and morphological fields) and the agreement of coders (Cohen, Fleiss, Krippendorff) |
 | [2026-11-12](2026-11-12.md) | Claims on a short estate, and the Shapley value; spatial interaction and congestion |

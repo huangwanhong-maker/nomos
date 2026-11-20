@@ -22,6 +22,7 @@ Each record captures one decision that shapes the structure, interfaces or tooli
 | [0012](0012-appraisal-and-agreement.md) | Appraisal, futures and the agreement of coders: MCDA with screening and stability, cost–benefit analysis, Delphi, morphological fields (`appraisal`); Cohen's, Fleiss's κ and Krippendorff's α (`measurement`) | Accepted, provisionally |
 | [0013](0013-microsimulation-and-psychometrics.md) | Static microsimulation of taxes and benefits; psychometrics: classical test theory and item response theory by marginal maximum likelihood | Accepted, provisionally |
 | [0014](0014-voting-power-bargaining-and-the-nucleolus.md) | Voting power (simple games, Penrose, Banzhaf, Shapley–Shubik and Coleman, weighted games by generating functions, the square-root rule), two-party bargaining (Nash, Kalai–Smorodinsky, egalitarian) with Adjusted Winner, and the core, least core and nucleolus | Accepted, provisionally |
+| [0015](0015-allocation-and-welfare-orders.md) | Allocation (rationing rules, formulas of practice, reserve systems, sequences and lotteries, fair division, participatory budgeting) and principles as orders over allocations (dominance, the undominated set, pivots, flips) | Accepted, provisionally |
 | [0010](0010-spatial-interaction-and-congestion.md) | Spatial interaction and congestion: Wilson's models, Lowry, routing games, Evans's combined equilibrium | Accepted, provisionally |
 
 ## 2. Template

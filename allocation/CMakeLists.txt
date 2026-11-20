@@ -1,0 +1,8 @@
+add_library(nomos_allocation INTERFACE)
+add_library(nomos::allocation ALIAS nomos_allocation)
+target_include_directories(nomos_allocation INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(nomos_allocation INTERFACE nomos::games calx::random)
+target_compile_features(nomos_allocation INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_allocation SOURCES tests/check_allocation.cpp LIBRARIES nomos::allocation calx::random)
+endif()

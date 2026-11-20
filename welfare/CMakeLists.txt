@@ -1,0 +1,8 @@
+add_library(nomos_welfare INTERFACE)
+add_library(nomos::welfare ALIAS nomos_welfare)
+target_include_directories(nomos_welfare INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(nomos_welfare INTERFACE nomos::measurement nomos::appraisal calx::random)
+target_compile_features(nomos_welfare INTERFACE cxx_std_20)
+if(NOMOS_CHECKS)
+  calx_add_check(check_nomos_welfare SOURCES tests/check_welfare.cpp LIBRARIES nomos::welfare calx::random)
+endif()

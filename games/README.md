@@ -40,6 +40,7 @@
 | `congestion.hpp` | `Arc{tail, head, a, b, power}` (t = a + b x^p) and `bpr(…)`; `Network{nodes, arcs, demands}`; `assign(network, {objective, gap, …})` → `Assignment{flow, time, total_time, objective, lower_bound, gap, …}`; `relative_gap`, `skims`, `times`, `beckmann`, `total_time`, `price_of_anarchy` |
 | `power.hpp` | `SimpleGame{players, wins}`, `WeightedGame{weights, quota}`, `simple(g)`, `all_of`, `any_of`; `properties(g)` → `Properties{monotone, proper, strong, decisive(), vetoes, dummies, minimal_winning}`; `power(g)` → `Power{swings, penrose, banzhaf, shapley_shubik, coleman_prevent, coleman_initiate, power_to_act}`, by enumeration (n ≤ 24) or, for a weighted game, by generating functions (any n); `decisive_in_majority(m)`, `indirect_power(sizes, council)` ([decision 0014](../development/decisions/0014-voting-power-bargaining-and-the-nucleolus.md)) |
 | `bargaining.hpp` | `Bargaining{outcomes, disagreement}`; `nash`, `kalai_smorodinsky`, `egalitarian` → `BargainingSolution{point, ideal, frontier}`; `adjusted_winner(a, b)` → `Division{share, points_a, points_b, split}` |
+| `dynamics.hpp` | Population games and evolutionary dynamics ([decision 0017](../development/decisions/0017-population-games-and-evolutionary-dynamics.md)): `linear(A)`, `rock_paper_scissors(w, l)`; `Protocol {replicator, best_response, logit, bnn, smith, maynard_smith}`; `protocol(p, π, x)` (the matrix ρ), `mean_dynamic(ρ, x)` (eq. 13.3), `field(p, F, x)` (Table 13.1's closed forms); `trajectory(p, F, x0, T, h)`; `incentive(p, F, x)` (positive correlation, Nash stationarity), `is_nash`; `replicator_entropy`, `bnn_lyapunov`, `smith_lyapunov`, `best_response_lyapunov` (Table 13.4); `finite_population(p, F, counts, times, stream)`, exact |
 | `nucleolus.hpp` | `least_core(n, v)` → `LeastCore{epsilon, x, core_nonempty()}`; `in_core(x, v)`; `excesses(x, v)`; `prenucleolus(n, v)` → `Nucleolus{x, levels, rounds, imputation}` (n ≤ 10) |
 
 Payoff matrices are `calx::linalg::Rectangular`. Ties within `tolerance` (default 10⁻⁹) count as ties.
@@ -90,6 +91,8 @@ Payoff matrices are `calx::linalg::Rectangular`. Ties within `tolerance` (defaul
   - the skim is the least time of every simple path.
 - **Forty random affine networks:** the optimum at most the equilibrium, and their ratio at most 4/3.
 
+- **Evolutionary dynamics** (`check_nomos_dynamics`, 22): each protocol's mean dynamic its closed form; the replicator's closed orbits in standard Rock–Paper–Scissors; convergence with the Lyapunov functions never rising in good Rock–Paper–Scissors; the heteroclinic approach in bad; positive correlation on random games; Nash stationarity failing for the replicator at a vertex; a potential that never falls, and BNN's algebraic approach to a strict equilibrium; Hawk–Dove's V/C; a dominated twin surviving under Smith (Hofbauer and Sandholm 2011); the logit's rest point; the finite population within 0.005 of the mean dynamic at N = 20,000.
+
 ## 4. Dependencies
 
 calx `linalg` (`Rectangular`, `solve`), `optimisation` (the simplex method) and `special_functions` (log-binomials, for the square-root rule); morphe `combinatorics` (Dijkstra's shortest paths, for routing games). In the checks, calx `random` and `verification`.
@@ -135,6 +138,10 @@ calx `linalg` (`Rectangular`, `solve`), `optimisation` (the simplex method) and 
 - von Stengel, B. (2007), Equilibrium computation for two-player games in strategic and extensive form, in N. Nisan et al. (eds), *Algorithmic Game Theory*, Cambridge University Press, ch. 3.
 - Wardrop, J. G. (1952), Some theoretical aspects of road traffic research, *Proc. Inst. Civ. Eng.* II 1, 325–378.
 - Wilson, R. (1971), Computing equilibria of n-person games, *SIAM J. Appl. Math.* 21, 80–87.
+- Sandholm, W. H. (2015), Population games and deterministic evolutionary dynamics, in *Handbook of Game Theory with Economic Applications* 4, ch. 13, 703–778 (doi 10.1016/B978-0-444-53766-9.00013-6).
+- Hofbauer, J. and Sandholm, W. H. (2011), Survival of dominated strategies under evolutionary dynamics, *Theoretical Economics* 6, 341–377.
+- Taylor, P. D. and Jonker, L. B. (1978), Evolutionarily stable strategies and game dynamics, *Mathematical Biosciences* 40, 145–156.
+- Smith, M. J. (1984), The stability of a dynamic model of traffic assignment, *Transportation Science* 18, 245–252.
 
 ## 6. Open Questions
 

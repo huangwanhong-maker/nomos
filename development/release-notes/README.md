@@ -13,6 +13,7 @@ A running record, for readers, of what each commit made possible or better. It i
 
 | Date | Commits |
 |---|---|
+| [2026-11-23](2026-11-23.md) | Population games and evolutionary dynamics |
 | [2026-11-21](2026-11-21.md) | Behaviours of three origins, kept apart and tallied |
 | [2026-11-20](2026-11-20.md) | Allocation: rationing rules (TAL, Piniles, adjusted proportional, duality, priority classes), the formulas of practice, reserve systems under every precedence, assignment and lotteries, fair division, participatory budgeting with EJR; principles of distribution as orders over allocations, dominance, and options compared without summing principles |
 | [2026-11-19](2026-11-19.md) | Voting power (Penrose, Banzhaf, Shapley–Shubik, Coleman), bargaining (Nash, Kalai–Smorodinsky, egalitarian) with Adjusted Winner, and the core, least core and nucleolus |
